@@ -16,7 +16,7 @@
 Install via npm:
 
 ```bash
-npm install jade-api
+npm install jade-hw-api
 ```
 
 ## Basic Example
@@ -25,7 +25,7 @@ the following is an example of how to use the jade API via serial device to send
 
 ```tsx
 import React, { useEffect } from 'react';
-import { JadeAPI } from 'jade-api';
+import { JadeAPI } from 'jade-hw-api';
 
 const App: React.FC = () => {
   useEffect(() => {
