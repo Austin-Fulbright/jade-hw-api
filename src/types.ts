@@ -22,3 +22,8 @@ export interface SerialPortOptions {
     baudRate?: number;
     timeout?: number;
 }
+
+
+export interface BitcoinScriptConfig {
+  
+}

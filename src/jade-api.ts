@@ -221,9 +221,17 @@ export class JadeAPI {
     return this.jadeRpc('register_multisig', params);
   }
 
-  
+  getRootFingerprint(): Promise<string> {
+    // Return a dummy fingerprint value (8 hexadecimal characters)
+    return Promise.resolve("DEADBEEF");
+  }
 
+  signPSBT(network: string, psbt: any): Promise<any> {
 
+    const params = {
+      network, psbt
+    }
 
-
+    return this.jadeRpc('sign_psbt', params);
+  }
 }
