@@ -1,6 +1,6 @@
 {
   "name": "jade-hw-api",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "dist/jade-api.js",
   "types": "dist/jade-api.d.ts",
   "scripts": {
