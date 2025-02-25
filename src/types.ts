@@ -25,5 +25,11 @@ export interface SerialPortOptions {
 
 
 export interface BitcoinScriptConfig {
-  
+
+}
+
+export interface MultisigRegisterObject {
+
+
+
 }

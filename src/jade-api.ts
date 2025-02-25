@@ -1,5 +1,7 @@
 // jade-api.ts
 import { JadeInterface } from './jade-interface';
+import HDKey from 'hdkey';
+import createHash from 'create-hash';
 
 export class JadeAPI {
   private iface: JadeInterface;
@@ -192,6 +194,7 @@ export class JadeAPI {
     return this.jadeRpc('get_xpub', params);
   }
 
+
   getRegisteredMultisigs(): Promise<any>{
     return this.jadeRpc('get_registered_multisigs');
   }
@@ -221,9 +224,15 @@ export class JadeAPI {
     return this.jadeRpc('register_multisig', params);
   }
 
-  getRootFingerprint(): Promise<string> {
-    // Return a dummy fingerprint value (8 hexadecimal characters)
-    return Promise.resolve("DEADBEEF");
+  async getRootFingerprint(): Promise<string> {
+    const rootXpub = await this.getXpub('mainnet', []);
+
+    const hdkey = HDKey.fromExtendedKey(rootXpub);
+    const sha256Hash = createHash('sha256').update(hdkey.publicKey!).digest();
+    const ripemd160Hash = createHash('ripemd160').update(sha256Hash).digest();
+    const fingerprint = ripemd160Hash.slice(0, 4);
+
+  return fingerprint.toString('hex').toUpperCase();
   }
 
   signPSBT(network: string, psbt: any): Promise<any> {
@@ -233,5 +242,14 @@ export class JadeAPI {
     }
 
     return this.jadeRpc('sign_psbt', params);
+  }
+
+  getMultiSigRecieveAddress(network: string, multisig_name: string, paths: number[][]): Promise<any>{
+    
+    const params = {
+      network, multisig_name, paths
+    }
+    
+    return this.jadeRpc('get_receive_address', params);
   }
 }
