@@ -244,12 +244,12 @@ export class JadeAPI {
     return this.jadeRpc('sign_psbt', params);
   }
 
-  getMultiSigRecieveAddress(network: string, multisig_name: string, paths: number[][]): Promise<any>{
+  getMultisigReceiveAddress(network: string, multisig_name: string, paths: number[][]): Promise<any>{
     
     const params = {
       network, multisig_name, paths
     }
-    
+
     return this.jadeRpc('get_receive_address', params);
   }
 }
