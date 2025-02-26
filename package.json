@@ -4,7 +4,7 @@
   "main": "dist/jade-api.js",
   "types": "dist/jade-api.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "tsc"
   },
   "keywords": [],
@@ -13,18 +13,23 @@
   },
   "description": "",
   "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-typescript": "^7.26.0",
     "@types/create-hash": "^1.2.6",
     "@types/hdkey": "^2.1.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.1",
+    "@types/serialport": "^8.0.5",
     "@types/w3c-web-serial": "^1.0.7",
+    "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
-    "ts-jest": "^29.2.5",
+    "ts-jest": "^29.2.6",
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "bs58check": "^4.0.0",
     "cbor2": "^1.9.0",
-    "create-hash": "^1.2.0",
-    "hdkey": "^2.1.0"
+    "create-hash": "^1.2.0"
   }
 }

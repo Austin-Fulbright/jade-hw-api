@@ -1,12 +1,10 @@
 // jade-api.ts
+import { IJade } from './types';
 import { JadeInterface } from './jade-interface';
-import HDKey from 'hdkey';
-import createHash from 'create-hash';
-
 export class JadeAPI {
-  private iface: JadeInterface;
+  private iface: IJade;
 
-  constructor(iface: JadeInterface) {
+  constructor(iface: IJade) {
     if (!iface) throw new Error('A valid JadeInterface instance is required');
     this.iface = iface;
   }
@@ -224,17 +222,6 @@ export class JadeAPI {
     return this.jadeRpc('register_multisig', params);
   }
 
-  async getRootFingerprint(): Promise<string> {
-    const rootXpub = await this.getXpub('mainnet', []);
-
-    const hdkey = HDKey.fromExtendedKey(rootXpub);
-    const sha256Hash = createHash('sha256').update(hdkey.publicKey!).digest();
-    const ripemd160Hash = createHash('ripemd160').update(sha256Hash).digest();
-    const fingerprint = ripemd160Hash.slice(0, 4);
-
-  return fingerprint.toString('hex').toUpperCase();
-  }
-
   signPSBT(network: string, psbt: any): Promise<any> {
 
     const params = {
@@ -249,7 +236,6 @@ export class JadeAPI {
     const params = {
       network, multisig_name, paths
     }
-
     return this.jadeRpc('get_receive_address', params);
   }
 }

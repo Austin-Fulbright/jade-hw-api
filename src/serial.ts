@@ -1,18 +1,11 @@
 // serial.ts
 import { EventEmitter } from 'events';
+import { SerialPortOptions, IDevice } from './types';
 import { encode, decode } from 'cbor2';
-import { SerialPortOptions } from './types';
 
-export interface ISerialPort extends EventEmitter {
-  connect(): Promise<void>;
-  disconnect(): Promise<void>;
-  sendMessage(message: any): Promise<void>;
-  onMessage(callback: (message: any) => void): void;
-}
-
-export class WebSerialPort extends EventEmitter implements ISerialPort {
+export class WebSerialPort extends EventEmitter implements IDevice {
   private options: SerialPortOptions;
-  private port: SerialPort | null = null;
+  private port: any | null = null;
   private reader: ReadableStreamDefaultReader<Uint8Array> | null = null;
   private receivedBuffer: Uint8Array = new Uint8Array(0);
 
@@ -20,7 +13,7 @@ export class WebSerialPort extends EventEmitter implements ISerialPort {
     super();
     this.options = options;
   }
-
+ 
   /**
    * Clears any accumulated bytes from the input buffer.
    */
@@ -34,7 +27,7 @@ export class WebSerialPort extends EventEmitter implements ISerialPort {
       if (!serial) {
         throw new Error('Web Serial API is not supported in this browser.');
       }
-      const ports: SerialPort[] = await serial.getPorts();
+      const ports: any[] = await serial.getPorts();
       if (ports.length === 0) {
         this.port = await serial.requestPort();
       } else {

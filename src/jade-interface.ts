@@ -1,12 +1,12 @@
 // jade-interface.ts
 import { EventEmitter } from 'events';
-import { ISerialPort } from './serial';
+import { IDevice, IJade } from './types';
 import { RPCRequest, RPCResponse } from './types';
 
-export class JadeInterface extends EventEmitter {
-  private impl: ISerialPort;
+export class JadeInterface extends EventEmitter implements IJade {
+  private impl: IDevice;
 
-  constructor(impl: ISerialPort) {
+  constructor(impl: IDevice) {
     super();
     if (!impl) throw new Error('A serial/ble implementation is required');
     this.impl = impl;
